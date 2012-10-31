@@ -9,7 +9,7 @@ killin' it
 
 executes with ruby 1.9.3
 
-`ruby -x ./linked_list.md` to run,
+`ruby -x ./readme.markdown` to run,
 do a `killall ruby` to stop it.
 
 List Output
@@ -66,11 +66,14 @@ Now how does it work?
 
 The script there in the middle is a web server. Ruby can run scripts embedded
 inside of text files. I have no idea why, but the bits between the shebang
-and the __END__ block become executable with the -x flag sent to ruby.
+and the `__END__` block become executable with the -x flag sent to ruby.
 
-Once the script starts running, everything after __END__ becomes available as
+Once the script starts running, everything after `__END__` becomes available as
 as the constant DATA, which allows rewinding to the beginning of the file so
-that you can see everything before the __END__ as well.
+that you can see everything before the `__END__` as well.
+
+After that, it's a simple matter of plucking out the message from the rest
+of the DATA block and outputting it with http headers.
 
 
 You Like?
