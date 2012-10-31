@@ -28,7 +28,7 @@ tragic error.
 
 require 'socket'
 
-# Process.daemon
+Process.daemon
 
 server = TCPServer.new(31337)
 DATA.rewind
