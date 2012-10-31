@@ -41,20 +41,21 @@ lines.each_with_index{|l, i| last += ( l[0] || "\n") if lines.fetch(i+1, '')[0] 
 out = first.join.gsub(/[^\w]/, '') + " " + last
 
 loop do
-  client = server.accept
-  lines = []
-  while line = client.gets and line !~ /^\s*$/
-    lines << line.chomp
+  Thread.start(server.accept) do |client|
+    lines = []
+    while line = client.gets and line !~ /^\s*$/
+      lines << line.chomp
+    end
+    headers = [
+      "HTTP/1.1 200 OK",
+      "Content-Type: text/plain",
+      "Content-Length: #{out.bytesize}",
+      "Connection: close\r\n\r\n"
+    ].join("\r\n")
+    client.puts headers
+    client.puts out
+    client.close
   end
-  headers = [
-    "HTTP/1.1 200 OK",
-    "Content-Type: text/plain",
-    "Content-Length: #{out.bytesize}",
-    "Connection: close\r\n\r\n"
-  ].join("\r\n")
-  client.puts headers
-  client.puts out
-  client.close
 end
 
 __END__
