@@ -90,11 +90,11 @@ of the DATA block and outputting it with http headers.
 Yes, but is it web scale?
 ---------
 
-ab -c 10 -n 1000 http://localhost:31337/
+    ab -c 10 -n 1000 http://localhost:31337/
 
-Requests per second:    3095.75 [#/sec] (mean)
-Time per request:       3.230 [ms] (mean)
-Time per request:       0.323 [ms] (mean, across all concurrent requests)
+    Requests per second:    3095.75 [#/sec] (mean)
+    Time per request:       3.230 [ms] (mean)
+    Time per request:       0.323 [ms] (mean, across all concurrent requests)
 
 
 Credits
@@ -102,6 +102,6 @@ Credits
 
 This script brought to you by Hurricane Sandy.
 
-This script uses quite a few tricks learned from
+It uses quite a few tricks learned from
 <https://speakerdeck.com/jeg2/10-things-you-didnt-know-ruby-could-do>
 
