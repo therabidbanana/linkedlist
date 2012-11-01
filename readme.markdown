@@ -9,8 +9,8 @@ killin' it
 
 executes with ruby 1.9.3
 
-`ruby -x ./readme.markdown` to run,
-do a `killall ruby` to stop it.
+`ruby -x ./readme.markdown` to run, do a `killall ruby` to stop it.
+do `ruby run.rb` to run the server once, output with curl, then stop.
 
 List Output
 ------
