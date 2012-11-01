@@ -2,15 +2,17 @@ LinkedList NYC Program
 ----------------------
 
 inside this file is a webserver that will output the text "LinkedList NYC" on
-network port 31337.
+network port 31337 via HTTP.
 
 killin' it
 ------------
 
 executes with ruby 1.9.3
 
-`ruby -x ./readme.markdown` to run, do a `killall ruby` to stop it.
-do `ruby run.rb` to run the server once, output with curl, then stop.
+`ruby -x ./readme.markdown` to run the server,
+do a `killall ruby` to stop the server
+
+`ruby run.rb` to run the server once, output with curl, then stop.
 
 List Output
 ------
