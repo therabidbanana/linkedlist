@@ -32,29 +32,39 @@ Process.daemon
 
 server = TCPServer.new(31337)
 DATA.rewind
-out = DATA.read
-splits = out.split('```')
-first = splits.first.split("\n").map{|l| l[0] }
+data = DATA.read
+
+# Pull out first letters
+parts = data.split('```')
+first = parts.first.split("\n").map{|l| l[0] }
+
+# Pluck out NYC
 last = ""
-lines = splits.last.split("\n")
-lines.each_with_index{|l, i| last += ( l[0] || "\n") if lines.fetch(i+1, '')[0] == '-' }
+lines = parts.last.split("\n")
+lines.each_with_index do |l, i|
+  last += ( l[0] || "\n") if lines.fetch(i+1, '')[0] == '-'
+end
+
+# Finish output
 out = first.join.gsub(/[^\w]/, '') + " " + last
 
+# Serve http
 loop do
   Thread.start(server.accept) do |client|
     lines = []
     while line = client.gets and line !~ /^\s*$/
       lines << line.chomp
     end
-    headers = [
-      "HTTP/1.1 200 OK",
-      "Content-Type: text/plain",
-      "Content-Length: #{out.bytesize}",
-      "Connection: close\r\n\r\n"
-    ].join("\r\n")
-    client.puts headers
-    client.puts out
+    client.puts <<-MESSAGE.gsub("\n", "\r\n")
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: #{out.bytesize+2}
+Connection: close
+
+#{out}
+    MESSAGE
     client.close
+    Thread.exit
   end
 end
 
@@ -89,5 +99,3 @@ Credits
 This script uses quite a few tricks learned from
 <https://speakerdeck.com/jeg2/10-things-you-didnt-know-ruby-could-do>
 
-
----
